@@ -8,15 +8,15 @@ import java.sql.Statement;
 
 
 
-public class Petugas{
+public class Member{
     //atribut object petugas
-    public String nip, namaPetugas, alamatPetugas;
+    public String idMember, namaMember, alamatMember;
 
     //field table petugas
-    protected String table = "pegawai";
-    protected String primaryKey = "nip";
+    protected String table = "member";
+    protected String primaryKey = "idMember";
     //belum dipakai
-    protected String[] fields = {"nama","alamat"};
+    protected String[] fields = {"idMember","namaMember"};
     
     //koneksi ke database
     public Connection connect(){
@@ -40,16 +40,16 @@ public class Petugas{
             ) {
                 //loop
                 while(data.next()){
-                    String nip = data.getString("nip");
-                    String nama = data.getString("nama");
-                    String alamat = data.getString("alamat");
+                    String nip = data.getString("idMember");
+                    String nama = data.getString("namaMember");
+                    String alamat = data.getString("alamatMember");
                     
-                    System.out.println("NIP         : " + nip);
+                    System.out.println("ID          : " + nip);
                     System.out.println("Nama        : " + nama);
                     System.out.println("Alamat      : " + alamat+"\n");
                 }
         } catch (SQLException e) {
-            System.out.println("data pegawai gagal ditampilkan !");
+            System.out.println("data member gagal ditampilkan !");
             System.out.println(e.getMessage());
         }
     }
@@ -62,20 +62,20 @@ public class Petugas{
             ResultSet data = stmt.executeQuery(sql);
             ) {
                 while(data.next()){
-                    this.nip = data.getString("nip");
-                    this.namaPetugas = data.getString("nama");
-                    this.alamatPetugas = data.getString("alamat");
+                    this.idMember = data.getString("idMember");
+                    this.namaMember = data.getString("namaMember");
+                    this.alamatMember = data.getString("alamatMember");
                    
                 }
           
         } catch (SQLException e) {
-            System.out.println("pegawai tidak ada !");
+            System.out.println("member tidak ada !");
             System.out.println(e.getMessage());
         }
     }
 
-    public void insertData(String nip, String nama, String alamat){
-        String sql = "INSERT INTO"+this.table+" values('"+nip+"','"+nama+"','"+alamat+"');";
+    public void insertData(String id, String nama, String alamat){
+        String sql = "INSERT INTO"+this.table+" values('"+id+"','"+nama+"','"+alamat+"');";
         try(
             Connection konek = this.connect();
             Statement stmt = konek.createStatement()
@@ -89,7 +89,7 @@ public class Petugas{
         }
     }
 
-    public void update(String pk,String nip, String nama, String alamat){
+    public void update(String pk,String id, String nama, String alamat){
         String sql = "UPDATE "+this.table+" SET "+fields[0]+"='"+nama+"',"+fields[1]+"='"+alamat+"' WHERE "+this.primaryKey+"='"+pk+"';";
         try(
             Connection konek = this.connect();
@@ -120,12 +120,7 @@ public class Petugas{
     }
 
     public static void main(String[] args){
-        /*
-        Petugas petugas = new Petugas();
-        petugas.getRow("P003");
-        System.out.println(petugas.nip);
-        System.out.println(petugas.namaPetugas);
-        System.out.println(petugas.alamatPetugas);
-        */
+        Member member = new Member();
+        member.getAll();
     }
 }
