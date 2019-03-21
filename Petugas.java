@@ -120,10 +120,12 @@ public class Petugas{
     }
 
     public static void main(String[] args){
+        /*
         Petugas petugas = new Petugas();
         petugas.getRow("P003");
         System.out.println(petugas.nip);
         System.out.println(petugas.namaPetugas);
         System.out.println(petugas.alamatPetugas);
+        */
     }
 }
